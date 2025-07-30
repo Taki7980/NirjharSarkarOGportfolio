@@ -1,4 +1,5 @@
 import { Mail, Phone, MapPin, MessageCircle } from "lucide-react"
+import Link from "next/link"
 import { ContactForm } from "./contact-form"
 
 export function Contact() {
@@ -94,7 +95,7 @@ export function Contact() {
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0" />
                   <div>
-                    <p className="font-semibold text-foreground">Full Stack Web Development Certification</p>
+                    <Link target="_blank" href={"https://67a7ln96n4.ufs.sh/f/Zt9yeamDBVo545dRqEjnxKAf58zd7OEmJiuwZRh3NQ9keHtg"} alt="link" className="font-semibold text-foreground">Full Stack Web Development Certification</Link>
                     <p>Udemy (2023)</p>
                   </div>
                 </div>
