@@ -123,6 +123,18 @@ export function Projects() {
       gradient: "from-cyan-400/20 to-blue-600/20",
       accentColor: "cyan"
     },
+    {
+      title: "Elden Overlay - Browser Extension",
+      year: "2024",
+      description:
+        "Privacy-focused Chrome extension delivering immersive Elden Ring-themed overlays with dynamic sound effects for browsing events. Features zero network activity, local-only storage with 24-hour auto-deletion, and comprehensive sensitive page protection ensuring complete user privacy.",
+      technologies: ["JavaScript", "Chrome Extension API", "Web Audio API", "CSS Animations"],
+      liveUrl: "",
+      githubUrl: "https://github.com/Taki7980/elden-ring-extension",
+      gradient: "from-amber-500/20 to-red-500/20",
+      accentColor: "amber",
+      featured: true,
+    },
   ];
 
   // Static color mapping for proper Tailwind compilation
