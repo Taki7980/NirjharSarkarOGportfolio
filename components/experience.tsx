@@ -4,9 +4,9 @@ export function Experience() {
       title: "Web Developer",
       company: "Webliverse",
       location: "Remote",
-      period: "August 2023 - March 2025",
+      period: "February 2024 - November 2024",
       achievements: [
-        "Managed and maintained 15+ client websites using WordPress, Elementor CMS, and custom HTML/CSS solutions",
+        "Managed and maintained 10+ client websites using WordPress, Elementor CMS, and custom HTML/CSS solutions",
         "Performed troubleshooting and technical issue resolution, reducing downtime by 30%",
         "Implemented website optimizations and performance improvements using caching strategies and code optimization",
       ],
