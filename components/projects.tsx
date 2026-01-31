@@ -103,6 +103,38 @@ export function Projects() {
       gradient: "from-yellow-400/20 to-rose-500/20",
       accentColor: "yellow",
     },
+    {
+      title: "AllmightyAPI - Express REST API",
+      year: "2025",
+      description: "Built a production-ready REST API using Express.js with Docker containerization, Neon PostgreSQL database, and comprehensive security features. Implemented JWT authentication, role-based access control, Drizzle ORM for database operations, and Arcjet for bot detection and rate limiting. Features ephemeral database branches for development and production-ready Docker setup.",
+      technologies: [
+        "Express.js",
+        "Node.js",
+        "Docker",
+        "Neon PostgreSQL",
+        "Drizzle ORM",
+        "JWT Auth",
+        "Arcjet Security",
+        "Winston Logger",
+        "Zod Validation"
+      ],
+      liveUrl: "",
+      githubUrl: "https://github.com/Taki7980/AllmightyAPI",
+      gradient: "from-cyan-400/20 to-blue-600/20",
+      accentColor: "cyan"
+    },
+    {
+      title: "Elden Overlay - Browser Extension",
+      year: "2024",
+      description:
+        "Privacy-focused Chrome extension delivering immersive Elden Ring-themed overlays with dynamic sound effects for browsing events. Features zero network activity, local-only storage with 24-hour auto-deletion, and comprehensive sensitive page protection ensuring complete user privacy.",
+      technologies: ["JavaScript", "Chrome Extension API", "Web Audio API", "CSS Animations"],
+      liveUrl: "",
+      githubUrl: "https://github.com/Taki7980/elden-ring-extension",
+      gradient: "from-amber-500/20 to-red-500/20",
+      accentColor: "amber",
+      featured: true,
+    },
   ];
 
   // Static color mapping for proper Tailwind compilation
@@ -115,7 +147,7 @@ export function Projects() {
     | "purple"
     | "rose"
     | "yellow";
-  
+
   type AccentClasses = {
     titleGradient: string;
     yearBg: string;
@@ -125,7 +157,7 @@ export function Projects() {
     particle2: string;
     particle3: string;
   };
-  
+
   const colorMap: Record<AccentColor, AccentClasses> = {
     blue: {
       titleGradient: "group-hover:bg-gradient-to-r group-hover:from-blue-500 group-hover:to-blue-700 group-hover:bg-clip-text group-hover:text-transparent",
@@ -200,7 +232,7 @@ export function Projects() {
       particle3: "bg-yellow-300",
     },
   };
-  
+
   const getAccentClasses = (accentColor: string): AccentClasses => {
     if (accentColor in colorMap) {
       return colorMap[accentColor as AccentColor];
@@ -233,13 +265,12 @@ export function Projects() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {projects.map((project, index) => {
             const colorClasses = getAccentClasses(project.accentColor);
-            
+
             return (
               <div
                 key={index}
-                className={`group relative overflow-hidden rounded-3xl transition-all duration-700 hover:-translate-y-3 ${
-                  project.featured ? "md:col-span-2 lg:col-span-1" : ""
-                }`}
+                className={`group relative overflow-hidden rounded-3xl transition-all duration-700 hover:-translate-y-3 ${project.featured ? "md:col-span-2 lg:col-span-1" : ""
+                  }`}
                 onMouseEnter={() => setHoveredProject(index)}
                 onMouseLeave={() => setHoveredProject(null)}
               >
