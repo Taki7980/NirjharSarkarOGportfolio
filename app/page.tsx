@@ -10,7 +10,7 @@ import { AnimatedBackground } from "@/components/animated-background"
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background transition-colors relative">
+    <div className="min-h-screen bg-background min-h-screen transition-colors relative">
       <AnimatedBackground />
       <Header />
       <main>
