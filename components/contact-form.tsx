@@ -25,6 +25,7 @@ interface FormErrors {
 
 interface ContactApiError {
   error?: string
+  code?: string
   details?: Array<{
     field: keyof FormErrors
     message: string
@@ -126,7 +127,12 @@ export function ContactForm() {
           setErrors(serverErrors)
         }
 
-        setSubmitError(data?.error || "Failed to send message. Please try again or contact me directly.")
+        const fallbackMessage =
+          data?.code === "EMAIL_PROVIDER_RECONNECT_REQUIRED"
+            ? "The contact form is temporarily unavailable because the connected Gmail account needs to be reconnected in EmailJS. Use the email button below for now."
+            : "Failed to send message. Please try again or contact me directly."
+
+        setSubmitError(data?.error || fallbackMessage)
         setSubmitStatus("error")
       }
     } catch (error) {

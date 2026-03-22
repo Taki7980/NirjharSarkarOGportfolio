@@ -31,6 +31,16 @@ const emailJsConfigSchema = z.object({
   EMAILJS_PRIVATE_KEY: z.string().min(1),
 })
 
+function isEmailProviderReconnectError(errorMessage: string) {
+  const normalizedError = errorMessage.toLowerCase()
+
+  return (
+    normalizedError.includes("invalid grant") ||
+    normalizedError.includes("please reconnect your gmail account") ||
+    normalizedError.includes("gmail_api")
+  )
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
@@ -98,6 +108,17 @@ export async function POST(request: NextRequest) {
     if (!emailjsResponse.ok) {
       const errorData = await emailjsResponse.text()
       console.error("EmailJS Error:", errorData)
+
+      if (isEmailProviderReconnectError(errorData)) {
+        return NextResponse.json(
+          {
+            error:
+              "The contact form is temporarily unavailable because the connected Gmail account in EmailJS needs to be reconnected. Please use the direct email option for now.",
+            code: "EMAIL_PROVIDER_RECONNECT_REQUIRED",
+          },
+          { status: 503 },
+        )
+      }
 
       return NextResponse.json(
         {
