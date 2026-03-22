@@ -1,6 +1,7 @@
 import { Mail, Phone, MapPin, MessageCircle } from "lucide-react"
 import Link from "next/link"
 import { ContactForm } from "./contact-form"
+import { CONTACT_EMAIL } from "@/lib/contact"
 
 export function Contact() {
   return (
@@ -36,10 +37,10 @@ export function Contact() {
                   <div>
                     <h3 className="text-lg font-semibold text-foreground mb-1">Email</h3>
                     <a
-                      href="mailto:nirjharsarkar8@gmail.com"
+                      href={`mailto:${CONTACT_EMAIL}`}
                       className="text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
                     >
-                      nirjharsarkar8@gmail.com
+                      {CONTACT_EMAIL}
                     </a>
                   </div>
                 </div>
@@ -95,7 +96,13 @@ export function Contact() {
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0" />
                   <div>
-                    <Link target="_blank" href={"https://67a7ln96n4.ufs.sh/f/Zt9yeamDBVo545dRqEjnxKAf58zd7OEmJiuwZRh3NQ9keHtg"} alt="link" className="font-semibold text-foreground">Full Stack Web Development Certification</Link>
+                    <Link
+                      target="_blank"
+                      href="https://67a7ln96n4.ufs.sh/f/Zt9yeamDBVo545dRqEjnxKAf58zd7OEmJiuwZRh3NQ9keHtg"
+                      className="font-semibold text-foreground"
+                    >
+                      Full Stack Web Development Certification
+                    </Link>
                     <p>Udemy (2023)</p>
                   </div>
                 </div>

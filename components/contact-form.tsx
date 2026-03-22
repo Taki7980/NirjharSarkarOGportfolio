@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react"
+import { buildContactMailtoUrl } from "@/lib/contact"
 
 interface FormData {
   name: string
@@ -22,6 +23,14 @@ interface FormErrors {
   message?: string
 }
 
+interface ContactApiError {
+  error?: string
+  details?: Array<{
+    field: keyof FormErrors
+    message: string
+  }>
+}
+
 export function ContactForm() {
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -32,6 +41,7 @@ export function ContactForm() {
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+  const [submitError, setSubmitError] = useState("")
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {}
@@ -72,6 +82,7 @@ export function ContactForm() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
+    setSubmitError("")
 
     // Clear error when user starts typing
     if (errors[name as keyof FormErrors]) {
@@ -88,6 +99,7 @@ export function ContactForm() {
 
     setIsSubmitting(true)
     setSubmitStatus("idle")
+    setSubmitError("")
 
     try {
       const response = await fetch("/api/contact", {
@@ -97,20 +109,36 @@ export function ContactForm() {
         },
         body: JSON.stringify(formData),
       })
+      const data = (await response.json().catch(() => null)) as ContactApiError | null
 
       if (response.ok) {
         setSubmitStatus("success")
+        setSubmitError("")
+        setErrors({})
         setFormData({ name: "", email: "", subject: "", message: "" })
       } else {
+        if (data?.details?.length) {
+          const serverErrors = data.details.reduce<FormErrors>((acc, detail) => {
+            acc[detail.field] = detail.message
+            return acc
+          }, {})
+
+          setErrors(serverErrors)
+        }
+
+        setSubmitError(data?.error || "Failed to send message. Please try again or contact me directly.")
         setSubmitStatus("error")
       }
     } catch (error) {
       console.error("Error submitting form:", error)
+      setSubmitError("Network error while sending your message. Please try again or contact me directly.")
       setSubmitStatus("error")
     } finally {
       setIsSubmitting(false)
     }
   }
+
+  const mailtoUrl = buildContactMailtoUrl(formData)
 
   return (
     <div className="bg-gradient-to-br from-blue-50/50 to-purple-50/50 dark:from-blue-950/20 dark:to-purple-950/20 p-8 rounded-3xl border border-white/20 dark:border-gray-800/20 backdrop-blur-sm">
@@ -251,9 +279,19 @@ export function ContactForm() {
         )}
 
         {submitStatus === "error" && (
-          <div className="flex items-center space-x-2 text-red-600 bg-red-50 dark:bg-red-950/20 p-4 rounded-2xl border border-red-200 dark:border-red-800">
-            <AlertCircle size={20} />
-            <span className="font-medium">Failed to send message. Please try again or contact me directly.</span>
+          <div className="space-y-3 rounded-2xl border border-red-200 bg-red-50 p-4 text-red-600 dark:border-red-800 dark:bg-red-950/20">
+            <div className="flex items-start space-x-2">
+              <AlertCircle size={20} className="mt-0.5 flex-shrink-0" />
+              <span className="font-medium">
+                {submitError || "Failed to send message. Please try again or contact me directly."}
+              </span>
+            </div>
+            <a
+              href={mailtoUrl}
+              className="inline-flex items-center justify-center rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white transition-colors duration-200 hover:bg-red-700"
+            >
+              Open Email App Instead
+            </a>
           </div>
         )}
       </form>
