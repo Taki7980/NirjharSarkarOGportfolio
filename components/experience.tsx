@@ -1,6 +1,17 @@
 export function Experience() {
   const experiences = [
     {
+      title: "Back-office Technical Support Executive",
+      company: "Hunteyed Tech Private Limited",
+      location: "Kolkata, West Bengal",
+      period: "February 2026 - March 2026 (1 month)",
+      achievements: [
+        "Managed backend configurations and activation support for GPS and IoT devices across software platforms",
+        "Handled remote troubleshooting, installation records, and technical issue tracking to support day-to-day operations",
+        "Prepared MIS reports, CRM updates, and technical documentation while coordinating with sales, support, and field teams",
+      ],
+    },
+    {
       title: "Web Developer",
       company: "Webliverse",
       location: "Remote",
@@ -28,7 +39,7 @@ export function Experience() {
     <section id="experience" className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-foreground mb-4">Professional Experience</h2>
+          <h2 className="text-3xl font-bold text-foreground mb-4">Personal Experience</h2>
           <div className="w-16 h-1 bg-gradient-to-r from-primary to-primary/50 mx-auto rounded-full" />
         </div>
 
